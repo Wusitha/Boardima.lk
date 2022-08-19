@@ -1,23 +1,24 @@
 package com.services.bodimalk.dto;
 
+import com.services.bodimalk.entity.User;
+
 import java.sql.Date;
 
 public class NotificationDTO {
     private Long id;
-    private Long user;
     private String message;
     private String state;
     private Date date;
+    private User user;
 
     public NotificationDTO() {
     }
 
-    public NotificationDTO(Long id, Long user, String message, String state, Date date) {
-        this.id = id;
-        this.user = user;
+    public NotificationDTO(String message, String state, Date date, User user) {
         this.message = message;
         this.state = state;
         this.date = date;
+        this.user = user;
     }
 
     public Long getId() {
@@ -26,14 +27,6 @@ public class NotificationDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getUser() {
-        return user;
-    }
-
-    public void setUser(Long user) {
-        this.user = user;
     }
 
     public String getMessage() {
@@ -60,14 +53,22 @@ public class NotificationDTO {
         this.date = date;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "NotificationDTO{" +
                 "id=" + id +
-                ", user=" + user +
                 ", message='" + message + '\'' +
                 ", state='" + state + '\'' +
                 ", date=" + date +
+                ", user=" + user +
                 '}';
     }
 }

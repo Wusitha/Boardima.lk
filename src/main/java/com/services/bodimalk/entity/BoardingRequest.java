@@ -15,11 +15,11 @@ public class BoardingRequest {
     @NotNull
     private boolean isPaid;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "boarder", referencedColumnName = "id", insertable = false, updatable = false)
     private User boarder;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "boarding_place", referencedColumnName = "id", insertable = false, updatable = false)
     private BoardingPlace boardingPlace;
 
@@ -72,16 +72,5 @@ public class BoardingRequest {
 
     public void setBoardingPlace(BoardingPlace boardingPlace) {
         this.boardingPlace = boardingPlace;
-    }
-
-    @Override
-    public String toString() {
-        return "BoardingRequest{" +
-                "boardingRequestPK=" + boardingRequestPK +
-                ", state='" + state + '\'' +
-                ", isPaid=" + isPaid +
-                ", boarder=" + boarder +
-                ", boardingPlace=" + boardingPlace +
-                '}';
     }
 }

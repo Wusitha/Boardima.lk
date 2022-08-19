@@ -11,7 +11,7 @@ public class Image {
     @NotNull
     private String url;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "boarding_place", referencedColumnName = "id")
     private BoardingPlace boardingPlace;
 
@@ -52,7 +52,6 @@ public class Image {
         return "Image{" +
                 "id=" + id +
                 ", url='" + url + '\'' +
-                ", boardingPlace=" + boardingPlace +
                 '}';
     }
 }

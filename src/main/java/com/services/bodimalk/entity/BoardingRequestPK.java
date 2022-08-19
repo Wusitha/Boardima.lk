@@ -35,12 +35,4 @@ public class BoardingRequestPK implements Serializable {
     public void setBoardingPlace(Long boardingPlace) {
         this.boardingPlace = boardingPlace;
     }
-
-    @Override
-    public String toString() {
-        return "BoardingRequestPK{" +
-                "boarder=" + boarder +
-                ", boardingPlace=" + boardingPlace +
-                '}';
-    }
 }

@@ -1,5 +1,7 @@
 package com.services.bodimalk.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,6 +40,7 @@ public class BoardingPlace {
     @NotNull
     private int type;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "owner", referencedColumnName = "id")
     private User owner;
@@ -49,10 +52,11 @@ public class BoardingPlace {
     private List<RentPayment> rentPayments;
 
     @OneToMany(mappedBy = "boardingPlace", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<BoardingRequest> boardingRequests;
+    private List<SubscriptionPayment> subscriptionPayments;
 
     @OneToMany(mappedBy = "boardingPlace", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<WishList> wishLists;
+    private List<BoardingRequest> boardingRequests;
+
 
     @OneToMany(mappedBy = "boardingPlace", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<Review> reviews;
@@ -60,7 +64,8 @@ public class BoardingPlace {
     public BoardingPlace() {
     }
 
-    public BoardingPlace(String location, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type) {
+    public BoardingPlace(Long id, String location, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, User owner) {
+        this.id = id;
         this.location = location;
         this.description = description;
         this.keyMoney = keyMoney;
@@ -73,6 +78,7 @@ public class BoardingPlace {
         this.baths = baths;
         this.genderPref = genderPref;
         this.type = type;
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -191,64 +197,19 @@ public class BoardingPlace {
         return images;
     }
 
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
-
     public List<RentPayment> getRentPayments() {
         return rentPayments;
     }
 
-    public void setRentPayments(List<RentPayment> rentPayments) {
-        this.rentPayments = rentPayments;
+    public List<SubscriptionPayment> getSubscriptionPayments() {
+        return subscriptionPayments;
     }
 
     public List<BoardingRequest> getBoardingRequests() {
         return boardingRequests;
     }
 
-    public void setBoardingRequests(List<BoardingRequest> boardingRequests) {
-        this.boardingRequests = boardingRequests;
-    }
-
-    public List<WishList> getWishLists() {
-        return wishLists;
-    }
-
-    public void setWishLists(List<WishList> wishLists) {
-        this.wishLists = wishLists;
-    }
-
     public List<Review> getReviews() {
         return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    @Override
-    public String toString() {
-        return "BoardingPlace{" +
-                "id=" + id +
-                ", location='" + location + '\'' +
-                ", description='" + description + '\'' +
-                ", keyMoney=" + keyMoney +
-                ", state='" + state + '\'' +
-                ", rate=" + rate +
-                ", date=" + date +
-                ", rentDay=" + rentDay +
-                ", rentAmo=" + rentAmo +
-                ", beds=" + beds +
-                ", baths=" + baths +
-                ", genderPref='" + genderPref + '\'' +
-                ", type=" + type +
-                ", owner=" + owner +
-                ", images=" + images +
-                ", rentPayments=" + rentPayments +
-                ", boardingRequests=" + boardingRequests +
-                ", wishLists=" + wishLists +
-                ", reviews=" + reviews +
-                '}';
     }
 }

@@ -1,10 +1,10 @@
 package com.services.bodimalk.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 public class BoardingPlaceDTO {
     private Long id;
-    private Long owner;
     private String location;
     private String description;
     private int keyMoney;
@@ -17,13 +17,15 @@ public class BoardingPlaceDTO {
     private int baths;
     private String genderPref;
     private int type;
+    private Long ownerId;
+
+    private List<ImageDTO> imageDTOS;
 
     public BoardingPlaceDTO() {
     }
 
-    public BoardingPlaceDTO(Long id, Long owner, String location, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type) {
+    public BoardingPlaceDTO(Long id, String location, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, Long ownerId) {
         this.id = id;
-        this.owner = owner;
         this.location = location;
         this.description = description;
         this.keyMoney = keyMoney;
@@ -36,6 +38,25 @@ public class BoardingPlaceDTO {
         this.baths = baths;
         this.genderPref = genderPref;
         this.type = type;
+        this.ownerId = ownerId;
+    }
+
+    public BoardingPlaceDTO(Long id, String location, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, Long ownerId, List<ImageDTO> imageDTOS) {
+        this.id = id;
+        this.location = location;
+        this.description = description;
+        this.keyMoney = keyMoney;
+        this.state = state;
+        this.rate = rate;
+        this.date = date;
+        this.rentDay = rentDay;
+        this.rentAmo = rentAmo;
+        this.beds = beds;
+        this.baths = baths;
+        this.genderPref = genderPref;
+        this.type = type;
+        this.ownerId = ownerId;
+        this.imageDTOS = imageDTOS;
     }
 
     public Long getId() {
@@ -44,14 +65,6 @@ public class BoardingPlaceDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Long owner) {
-        this.owner = owner;
     }
 
     public String getLocation() {
@@ -150,11 +163,22 @@ public class BoardingPlaceDTO {
         this.type = type;
     }
 
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public List<ImageDTO> getImageDTOS() {
+        return imageDTOS;
+    }
+
     @Override
     public String toString() {
         return "BoardingPlaceDTO{" +
                 "id=" + id +
-                ", owner=" + owner +
                 ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
                 ", keyMoney=" + keyMoney +
@@ -167,6 +191,8 @@ public class BoardingPlaceDTO {
                 ", baths=" + baths +
                 ", genderPref='" + genderPref + '\'' +
                 ", type=" + type +
+                ", ownerId=" + ownerId +
+                ", imageDTOS=" + imageDTOS +
                 '}';
     }
 }

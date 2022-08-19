@@ -4,20 +4,19 @@ import java.sql.Date;
 
 public class RentPaymentDTO {
     private Long id;
-    private Long boardingPlace;
-    private Long boarder;
     private double amount;
     private Date date;
+    private Long boardingPlace;
+    private Long boarder;
 
     public RentPaymentDTO() {
     }
 
-    public RentPaymentDTO(Long id, Long boardingPlace, Long boarder, double amount, Date date) {
-        this.id = id;
-        this.boardingPlace = boardingPlace;
-        this.boarder = boarder;
+    public RentPaymentDTO(double amount, Date date, Long boardingPlace, Long boarder) {
         this.amount = amount;
         this.date = date;
+        this.boardingPlace = boardingPlace;
+        this.boarder = boarder;
     }
 
     public Long getId() {

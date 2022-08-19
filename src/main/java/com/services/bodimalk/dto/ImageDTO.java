@@ -2,16 +2,15 @@ package com.services.bodimalk.dto;
 
 public class ImageDTO {
     private Long id;
-    private Long boardingPlace;
     private String url;
+    private Long boardingPlace;
 
     public ImageDTO() {
     }
 
-    public ImageDTO(Long id, Long boardingPlace, String url) {
-        this.id = id;
-        this.boardingPlace = boardingPlace;
+    public ImageDTO(String url, Long boardingPlace) {
         this.url = url;
+        this.boardingPlace = boardingPlace;
     }
 
     public Long getId() {
@@ -22,14 +21,6 @@ public class ImageDTO {
         this.id = id;
     }
 
-    public Long getBoardingPlace() {
-        return boardingPlace;
-    }
-
-    public void setBoardingPlace(Long boardingPlace) {
-        this.boardingPlace = boardingPlace;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -38,12 +29,20 @@ public class ImageDTO {
         this.url = url;
     }
 
+    public Long getBoardingPlace() {
+        return boardingPlace;
+    }
+
+    public void setBoardingPlace(Long boardingPlace) {
+        this.boardingPlace = boardingPlace;
+    }
+
     @Override
     public String toString() {
         return "ImageDTO{" +
                 "id=" + id +
-                ", boardingPlace=" + boardingPlace +
                 ", url='" + url + '\'' +
+                ", boardingPlace=" + boardingPlace +
                 '}';
     }
 }

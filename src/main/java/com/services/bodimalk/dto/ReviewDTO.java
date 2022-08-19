@@ -4,24 +4,23 @@ import java.sql.Date;
 
 public class ReviewDTO {
     private Long id;
-    private Long examiner;
-    private Long boardingPlace;
-    private Long boarder;
     private String state;
     private Date date;
     private String description;
+    private Long boarder;
+    private Long examiner;
+    private Long boardingPlace;
 
     public ReviewDTO() {
     }
 
-    public ReviewDTO(Long id, Long examiner, Long boardingPlace, Long boarder, String state, Date date, String description) {
-        this.id = id;
-        this.examiner = examiner;
-        this.boardingPlace = boardingPlace;
-        this.boarder = boarder;
+    public ReviewDTO(String state, Date date, String description, Long boarder, Long examiner, Long boardingPlace) {
         this.state = state;
         this.date = date;
         this.description = description;
+        this.boarder = boarder;
+        this.examiner = examiner;
+        this.boardingPlace = boardingPlace;
     }
 
     public Long getId() {

@@ -8,7 +8,9 @@ public class Globals {
 
     //user-states
     public static final String STATE_PENDING = "P";
+    public static final String NOT_PAID = "L";
     public static final String STATE_ACTIVE = "A";
     public static final String STATE_BAN = "B";
+
 
 }

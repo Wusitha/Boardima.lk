@@ -11,39 +11,30 @@ public class User {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
-    @NotNull
+    @Column(length = 12, unique = true)
     private String nic;
-    @NotNull
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @NotNull
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-    @NotNull
     @Column(length = 10)
     private String contact;
-    @NotNull
-    @Column(length = 100, unique = true)
+    @Column(length = 100, unique = true, nullable = false)
     private String email;
     @NotNull
     private String password;
-    @NotNull
     @Column(length = 1)
     private String gender;
-    @NotNull
     private Date dob;
-    @NotNull
-    @Column(length = 1)
+    @Column(length = 1, nullable = false)
     private String state;
-    @NotNull
-    @Column(length = 1)
+    @Column(length = 1, nullable = false)
     private String type;
-    @NotNull
     @Column(name = "guardian_name")
     private String guardianName;
-    @NotNull
     @Column(name = "guardian_contact",length = 10)
     private String guardianContact;
+    private String profileImg;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<Notification> notifications;
@@ -60,7 +51,7 @@ public class User {
     @OneToMany(mappedBy = "boarder", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<BoardingRequest> boardingRequests;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "boarder", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<WishList> wishLists;
 
     @OneToMany(mappedBy = "boarder", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -73,7 +64,8 @@ public class User {
     public User() {
     }
 
-    public User(String nic, String firstName, String lastName, String contact, String email, String password, String gender, Date dob, String state, String type, String guardianName, String guardianContact) {
+    public User(Long id, String nic, String firstName, String lastName, String contact, String email, String password, String gender, Date dob, String state, String type, String guardianName, String guardianContact, String profileImg) {
+        this.id = id;
         this.nic = nic;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -86,6 +78,7 @@ public class User {
         this.type = type;
         this.guardianName = guardianName;
         this.guardianContact = guardianContact;
+        this.profileImg = profileImg;
     }
 
     public Long getId() {
@@ -192,94 +185,43 @@ public class User {
         this.guardianContact = guardianContact;
     }
 
-    public List<Notification> getNotifications() {
-        return notifications;
+    public String getProfileImg() {
+        return profileImg;
     }
 
-    public void setNotifications(List<Notification> notifications) {
-        this.notifications = notifications;
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
     }
 
     public List<BoardingPlace> getBoardingPlaces() {
         return boardingPlaces;
     }
 
-    public void setBoardingPlaces(List<BoardingPlace> boardingPlaces) {
-        this.boardingPlaces = boardingPlaces;
-    }
-
     public List<RentPayment> getRentPayments() {
         return rentPayments;
-    }
-
-    public void setRentPayments(List<RentPayment> rentPayments) {
-        this.rentPayments = rentPayments;
     }
 
     public List<SubscriptionPayment> getSubscriptionPayments() {
         return subscriptionPayments;
     }
 
-    public void setSubscriptionPayments(List<SubscriptionPayment> subscriptionPayments) {
-        this.subscriptionPayments = subscriptionPayments;
-    }
-
     public List<BoardingRequest> getBoardingRequests() {
         return boardingRequests;
-    }
-
-    public void setBoardingRequests(List<BoardingRequest> boardingRequests) {
-        this.boardingRequests = boardingRequests;
     }
 
     public List<WishList> getWishLists() {
         return wishLists;
     }
 
-    public void setWishLists(List<WishList> wishLists) {
-        this.wishLists = wishLists;
-    }
-
     public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
     public List<Review> getComplaints() {
         return complaints;
-    }
-
-    public void setComplaints(List<Review> complaints) {
-        this.complaints = complaints;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", nic='" + nic + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", contact='" + contact + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", gender='" + gender + '\'' +
-                ", dob=" + dob +
-                ", state='" + state + '\'' +
-                ", type='" + type + '\'' +
-                ", guardianName='" + guardianName + '\'' +
-                ", guardianContact='" + guardianContact + '\'' +
-                ", notifications=" + notifications +
-                ", boardingPlaces=" + boardingPlaces +
-                ", rentPayments=" + rentPayments +
-                ", subscriptionPayments=" + subscriptionPayments +
-                ", boardingRequests=" + boardingRequests +
-                ", wishLists=" + wishLists +
-                ", reviews=" + reviews +
-                ", complaints=" + complaints +
-                '}';
     }
 }

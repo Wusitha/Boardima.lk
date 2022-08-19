@@ -1,5 +1,7 @@
 package com.services.bodimalk.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,21 +9,25 @@ public class WishList {
     @EmbeddedId
     private WishListPK wishListPK;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    @JoinColumn(name = "user", referencedColumnName = "id", insertable = false, updatable = false)
-    private User user;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "boarder", referencedColumnName = "id", insertable = false, updatable = false)
+    private User boarder;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
+    @JsonIgnore
+    @ManyToOne
     @JoinColumn(name = "boarding_place", referencedColumnName = "id", insertable = false, updatable = false)
     private BoardingPlace boardingPlace;
 
     public WishList() {
     }
 
-    public WishList(WishListPK wishListPK, User user, BoardingPlace boardingPlace) {
+    public WishList(WishListPK wishListPK) {
         this.wishListPK = wishListPK;
-        this.user = user;
-        this.boardingPlace = boardingPlace;
+    }
+
+    public WishList(Long user, Long boardingPlace) {
+        this.wishListPK = new WishListPK(user, boardingPlace);
     }
 
     public WishListPK getWishListPK() {
@@ -32,12 +38,12 @@ public class WishList {
         this.wishListPK = wishListPK;
     }
 
-    public User getUser() {
-        return user;
+    public User getBoarder() {
+        return boarder;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setBoarder(User boarder) {
+        this.boarder = boarder;
     }
 
     public BoardingPlace getBoardingPlace() {
@@ -46,14 +52,5 @@ public class WishList {
 
     public void setBoardingPlace(BoardingPlace boardingPlace) {
         this.boardingPlace = boardingPlace;
-    }
-
-    @Override
-    public String toString() {
-        return "WishList{" +
-                "wishListPK=" + wishListPK +
-                ", user=" + user +
-                ", boardingPlace=" + boardingPlace +
-                '}';
     }
 }

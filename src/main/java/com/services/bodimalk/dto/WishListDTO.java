@@ -1,38 +1,29 @@
 package com.services.bodimalk.dto;
 
+import com.services.bodimalk.entity.WishListPK;
+
 public class WishListDTO {
-    private Long user;
-    private Long boardingPlace;
+    private WishListPK wishListPK;
 
     public WishListDTO() {
     }
 
-    public WishListDTO(Long user, Long boardingPlace) {
-        this.user = user;
-        this.boardingPlace = boardingPlace;
+    public WishListDTO(WishListPK wishListPK) {
+        this.wishListPK = wishListPK;
     }
 
-    public Long getUser() {
-        return user;
+    public WishListPK getWishListPK() {
+        return wishListPK;
     }
 
-    public void setUser(Long user) {
-        this.user = user;
-    }
-
-    public Long getBoardingPlace() {
-        return boardingPlace;
-    }
-
-    public void setBoardingPlace(Long boardingPlace) {
-        this.boardingPlace = boardingPlace;
+    public void setWishListPK(WishListPK wishListPK) {
+        this.wishListPK = wishListPK;
     }
 
     @Override
     public String toString() {
         return "WishListDTO{" +
-                "user=" + user +
-                ", boardingPlace=" + boardingPlace +
+                "wishListPK=" + wishListPK +
                 '}';
     }
 }

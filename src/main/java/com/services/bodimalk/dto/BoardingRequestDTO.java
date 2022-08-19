@@ -1,43 +1,27 @@
 package com.services.bodimalk.dto;
 
+import com.services.bodimalk.entity.BoardingRequestPK;
+
 public class BoardingRequestDTO {
-    private Long boarder;
-    private Long boardingPlace;
-    private boolean isPaid;
+    private BoardingRequestPK boardingRequestPK;
     private String state;
+    private boolean isPaid;
 
     public BoardingRequestDTO() {
     }
 
-    public BoardingRequestDTO(Long boarder, Long boardingPlace, boolean isPaid, String state) {
-        this.boarder = boarder;
-        this.boardingPlace = boardingPlace;
-        this.isPaid = isPaid;
+    public BoardingRequestDTO(BoardingRequestPK boardingRequestPK, String state, boolean isPaid) {
+        this.boardingRequestPK = boardingRequestPK;
         this.state = state;
+        this.isPaid = isPaid;
     }
 
-    public Long getBoarder() {
-        return boarder;
+    public BoardingRequestPK getBoardingRequestPK() {
+        return boardingRequestPK;
     }
 
-    public void setBoarder(Long boarder) {
-        this.boarder = boarder;
-    }
-
-    public Long getBoardingPlace() {
-        return boardingPlace;
-    }
-
-    public void setBoardingPlace(Long boardingPlace) {
-        this.boardingPlace = boardingPlace;
-    }
-
-    public boolean isPaid() {
-        return isPaid;
-    }
-
-    public void setPaid(boolean paid) {
-        isPaid = paid;
+    public void setBoardingRequestPK(BoardingRequestPK boardingRequestPK) {
+        this.boardingRequestPK = boardingRequestPK;
     }
 
     public String getState() {
@@ -48,13 +32,20 @@ public class BoardingRequestDTO {
         this.state = state;
     }
 
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
     @Override
     public String toString() {
         return "BoardingRequestDTO{" +
-                "boarder=" + boarder +
-                ", boardingPlace=" + boardingPlace +
-                ", isPaid=" + isPaid +
+                "boardingRequestPK=" + boardingRequestPK +
                 ", state='" + state + '\'' +
+                ", isPaid=" + isPaid +
                 '}';
     }
 }

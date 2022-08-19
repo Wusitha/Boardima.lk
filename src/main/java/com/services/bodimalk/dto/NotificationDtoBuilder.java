@@ -1,38 +1,22 @@
-package com.services.bodimalk.entity;
+package com.services.bodimalk.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
-@Entity
-@Table(name = "notification")
-public class Notification {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class NotificationDtoBuilder {
     private Long id;
-    @NotNull
     private String message;
-    @NotNull
     private String state;
-    @NotNull
     private Date date;
+    private Long userId;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn (name = "user", referencedColumnName = "id")
-    private User user;
-
-    public Notification() {
+    public NotificationDtoBuilder() {
     }
 
-    public Notification(Long id, String message, String state, Date date, User user) {
-        this.id = id;
+    public NotificationDtoBuilder(String message, String state, Date date, Long userId) {
         this.message = message;
         this.state = state;
         this.date = date;
-        this.user = user;
+        this.userId = userId;
     }
 
     public Long getId() {
@@ -67,11 +51,11 @@ public class Notification {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

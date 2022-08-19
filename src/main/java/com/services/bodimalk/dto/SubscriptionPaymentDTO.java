@@ -4,18 +4,17 @@ import java.sql.Date;
 
 public class SubscriptionPaymentDTO {
     private Long id;
-    private Long owner;
-    private Date date;
     private double amount;
+    private Date date;
+    private Long owner;
 
     public SubscriptionPaymentDTO() {
     }
 
-    public SubscriptionPaymentDTO(Long id, Long owner, Date date, double amount) {
-        this.id = id;
-        this.owner = owner;
-        this.date = date;
+    public SubscriptionPaymentDTO(double amount, Date date, Long owner) {
         this.amount = amount;
+        this.date = date;
+        this.owner = owner;
     }
 
     public Long getId() {

@@ -16,26 +16,28 @@ public class Review {
     @NotNull
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "boarder",referencedColumnName = "id")
     private User boarder;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "examiner", referencedColumnName = "id", nullable = true)
     private User examiner;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "boarding_place", referencedColumnName = "id")
     private BoardingPlace boardingPlace;
 
     public Review() {
     }
 
-    public Review(String state, Date date, String description, User boarder, BoardingPlace boardingPlace) {
+    public Review(Long id, String state, Date date, String description, User boarder, User examiner, BoardingPlace boardingPlace) {
+        this.id = id;
         this.state = state;
         this.date = date;
         this.description = description;
         this.boarder = boarder;
+        this.examiner = examiner;
         this.boardingPlace = boardingPlace;
     }
 
@@ -93,18 +95,5 @@ public class Review {
 
     public void setBoardingPlace(BoardingPlace boardingPlace) {
         this.boardingPlace = boardingPlace;
-    }
-
-    @Override
-    public String toString() {
-        return "Review{" +
-                "id=" + id +
-                ", state='" + state + '\'' +
-                ", date=" + date +
-                ", description='" + description + '\'' +
-                ", boarder=" + boarder +
-                ", examiner=" + examiner +
-                ", boardingPlace=" + boardingPlace +
-                '}';
     }
 }

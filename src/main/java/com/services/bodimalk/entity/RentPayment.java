@@ -1,5 +1,7 @@
 package com.services.bodimalk.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -14,10 +16,12 @@ public class RentPayment {
     @NotNull
     private Date date;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "boarding_place", nullable = false)
     private BoardingPlace boardingPlace;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "boarder", referencedColumnName = "id", nullable = false)
     private User boarder;
@@ -25,10 +29,12 @@ public class RentPayment {
     public RentPayment() {
     }
 
-    public RentPayment(double amount, Date date, BoardingPlace boardingPlace) {
+    public RentPayment(Long id, double amount, Date date, BoardingPlace boardingPlace, User boarder) {
+        this.id = id;
         this.amount = amount;
         this.date = date;
         this.boardingPlace = boardingPlace;
+        this.boarder = boarder;
     }
 
     public Long getId() {
@@ -69,16 +75,5 @@ public class RentPayment {
 
     public void setBoarder(User boarder) {
         this.boarder = boarder;
-    }
-
-    @Override
-    public String toString() {
-        return "RentPayment{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", date=" + date +
-                ", boardingPlace=" + boardingPlace +
-                ", boarder=" + boarder +
-                '}';
     }
 }
