@@ -212,4 +212,24 @@ public class BoardingPlace {
     public List<Review> getReviews() {
         return reviews;
     }
+
+    @Override
+    public String toString() {
+        return "BoardingPlace{" +
+                "id=" + id +
+                ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
+                ", keyMoney=" + keyMoney +
+                ", state='" + state + '\'' +
+                ", rate=" + rate +
+                ", date=" + date +
+                ", rentDay=" + rentDay +
+                ", rentAmo=" + rentAmo +
+                ", beds=" + beds +
+                ", baths=" + baths +
+                ", genderPref='" + genderPref + '\'' +
+                ", type=" + type +
+                ", owner=" + owner +
+                '}';
+    }
 }

@@ -32,6 +32,13 @@ public class UserController {
         return userDTOS;
     }
 
+    @GetMapping("/get/{id}")
+    public UserDTO getUserById(@PathVariable Long id){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(id);
+        return userBO.getUserById(userDTO);
+    }
+
     @PostMapping("/add")
     public ResponseEntity addUser(@Valid @RequestBody UserDTO userDTO){
 

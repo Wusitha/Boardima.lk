@@ -14,6 +14,7 @@ public interface BoardingPlaceBO {
     public BoardingPlaceDTO getBoardingPlaceById(BoardingPlaceDTO boardingPlaceDTO);
     public List<BoardingPlaceDTO> getAllBoardingPlaces();
     public List<BoardingPlaceDTO> getAllAds();
+    public List<BoardingPlaceDTO> getAllAdsByOwner(UserDTO userDTO);
     public List<BoardingPlaceDTO> getAllBoardingPlacesByTypeAndState(BoardingPlaceDTO boardingPlaceDTO);
     public List<UserDTO> getBoarderListByBoardingPlace(BoardingPlaceDTO boardingPlaceDTO);
 }

@@ -175,6 +175,10 @@ public class BoardingPlaceDTO {
         return imageDTOS;
     }
 
+    public void setImageDTOS(List<ImageDTO> imageDTOS) {
+        this.imageDTOS = imageDTOS;
+    }
+
     @Override
     public String toString() {
         return "BoardingPlaceDTO{" +

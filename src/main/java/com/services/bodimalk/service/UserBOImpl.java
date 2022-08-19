@@ -135,7 +135,7 @@ public class UserBOImpl implements UserBO {
     @Override
     public UserDTO getUserById(UserDTO userDTO) {
         if (userDAO.existsById(userDTO.getId())){
-            Optional<User> user = userDAO.findById(userDTO.getId());
+            User user = userDAO.findUserById(userDTO.getId());
             BeanUtils.copyProperties(user, userDTO);
 
             return userDTO;
