@@ -16,8 +16,11 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class UserController {
 
+    private final UserBO userBO;
     @Autowired
-    UserBO userBO;
+    public UserController(UserBO userBO) {
+        this.userBO = userBO;
+    }
 
     @GetMapping("/type/{type}")
     public List<UserDTO> getAllUsersByType(@PathVariable String type){

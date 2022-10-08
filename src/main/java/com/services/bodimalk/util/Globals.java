@@ -12,5 +12,8 @@ public class Globals {
     public static final String STATE_ACTIVE = "A";
     public static final String STATE_BAN = "B";
 
+    //constants
+    public static final double DEFAULT_RATE = 0.0;
+
 
 }

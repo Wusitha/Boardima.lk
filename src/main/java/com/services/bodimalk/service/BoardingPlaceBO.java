@@ -9,6 +9,7 @@ public interface BoardingPlaceBO {
     public boolean checkSubscription(BoardingPlaceDTO boardingPlaceDTO);
     public boolean checkAvailabilityOfBoardingPlace(BoardingPlaceDTO boardingPlaceDTO);
     public boolean addBoardingPlace(BoardingPlaceDTO boardingPlaceDTO);
+    public BoardingPlaceDTO rateBoardingPlace(BoardingPlaceDTO boardingPlaceDTO, double rate);
     public boolean updateBoardingPlace(BoardingPlaceDTO boardingPlaceDTO);
     public boolean deleteBoardingPlace(BoardingPlaceDTO boardingPlaceDTO);
     public BoardingPlaceDTO getBoardingPlaceById(BoardingPlaceDTO boardingPlaceDTO);

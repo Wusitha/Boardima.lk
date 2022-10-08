@@ -1,5 +1,7 @@
 package com.services.bodimalk.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -19,7 +21,8 @@ public class BoardingRequest {
     @JoinColumn(name = "boarder", referencedColumnName = "id", insertable = false, updatable = false)
     private User boarder;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
+    @JsonIgnore
+    @ManyToOne
     @JoinColumn(name = "boarding_place", referencedColumnName = "id", insertable = false, updatable = false)
     private BoardingPlace boardingPlace;
 

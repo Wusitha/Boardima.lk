@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
 
@@ -15,7 +14,11 @@ public class BoardingPlace {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String location;
+    private double latitude;
+    @NotNull
+    private double altitude;
+    @NotNull
+    private String name;
     @NotNull
     private String description;
     @Column(name = "key_money", nullable = false)
@@ -23,7 +26,6 @@ public class BoardingPlace {
     @NotNull
     private String state;
     @NotNull
-    @Size(min = 0, max = 5)
     private double rate;
     @NotNull
     private Date date;
@@ -42,7 +44,7 @@ public class BoardingPlace {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "owner", referencedColumnName = "id")
+    @JoinColumn(name = "owner", referencedColumnName = "id", nullable = false)
     private User owner;
 
     @OneToMany(mappedBy = "boardingPlace", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -60,13 +62,17 @@ public class BoardingPlace {
 
     @OneToMany(mappedBy = "boardingPlace", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<Review> reviews;
+    @OneToMany(mappedBy = "boardingPlace", cascade = CascadeType.ALL)
+    private List<FacilityProfile> facilityProfile;
 
     public BoardingPlace() {
     }
 
-    public BoardingPlace(Long id, String location, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, User owner) {
+    public BoardingPlace(Long id, double latitude, double altitude, String name, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, User owner) {
         this.id = id;
-        this.location = location;
+        this.latitude = latitude;
+        this.altitude = altitude;
+        this.name = name;
         this.description = description;
         this.keyMoney = keyMoney;
         this.state = state;
@@ -78,6 +84,70 @@ public class BoardingPlace {
         this.baths = baths;
         this.genderPref = genderPref;
         this.type = type;
+        this.owner = owner;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setKeyMoney(int keyMoney) {
+        this.keyMoney = keyMoney;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setRentDay(int rentDay) {
+        this.rentDay = rentDay;
+    }
+
+    public void setRentAmo(double rentAmo) {
+        this.rentAmo = rentAmo;
+    }
+
+    public void setBeds(int beds) {
+        this.beds = beds;
+    }
+
+    public void setBaths(int baths) {
+        this.baths = baths;
+    }
+
+    public void setGenderPref(String genderPref) {
+        this.genderPref = genderPref;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
@@ -85,112 +155,64 @@ public class BoardingPlace {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public String getLocation() {
-        return location;
+    public double getAltitude() {
+        return altitude;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getKeyMoney() {
         return keyMoney;
-    }
-
-    public void setKeyMoney(int keyMoney) {
-        this.keyMoney = keyMoney;
     }
 
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public double getRate() {
         return rate;
-    }
-
-    public void setRate(double rate) {
-        this.rate = rate;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public int getRentDay() {
         return rentDay;
-    }
-
-    public void setRentDay(int rentDay) {
-        this.rentDay = rentDay;
     }
 
     public double getRentAmo() {
         return rentAmo;
     }
 
-    public void setRentAmo(double rentAmo) {
-        this.rentAmo = rentAmo;
-    }
-
     public int getBeds() {
         return beds;
-    }
-
-    public void setBeds(int beds) {
-        this.beds = beds;
     }
 
     public int getBaths() {
         return baths;
     }
 
-    public void setBaths(int baths) {
-        this.baths = baths;
-    }
-
     public String getGenderPref() {
         return genderPref;
-    }
-
-    public void setGenderPref(String genderPref) {
-        this.genderPref = genderPref;
     }
 
     public int getType() {
         return type;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public User getOwner() {
         return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
     }
 
     public List<Image> getImages() {
@@ -213,23 +235,7 @@ public class BoardingPlace {
         return reviews;
     }
 
-    @Override
-    public String toString() {
-        return "BoardingPlace{" +
-                "id=" + id +
-                ", location='" + location + '\'' +
-                ", description='" + description + '\'' +
-                ", keyMoney=" + keyMoney +
-                ", state='" + state + '\'' +
-                ", rate=" + rate +
-                ", date=" + date +
-                ", rentDay=" + rentDay +
-                ", rentAmo=" + rentAmo +
-                ", beds=" + beds +
-                ", baths=" + baths +
-                ", genderPref='" + genderPref + '\'' +
-                ", type=" + type +
-                ", owner=" + owner +
-                '}';
+    public List<FacilityProfile> getFacilityProfile() {
+        return facilityProfile;
     }
 }

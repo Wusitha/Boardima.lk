@@ -29,7 +29,6 @@ public class UserBOImpl implements UserBO {
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         user.setGender(userDTO.getGender());
-        user.setDob(userDTO.getDob());
         user.setState(userDTO.getState());
         user.setType(userDTO.getType());
         user.setGuardianName(userDTO.getGuardianName());
@@ -50,7 +49,6 @@ public class UserBOImpl implements UserBO {
         userDTO.setEmail(user.getEmail());
         userDTO.setPassword(user.getPassword());
         userDTO.setGender(user.getGender());
-        userDTO.setDob(user.getDob());
         userDTO.setState(user.getState());
         userDTO.setType(user.getType());
         userDTO.setGuardianName(user.getGuardianName());
@@ -72,7 +70,7 @@ public class UserBOImpl implements UserBO {
             }
         }
 
-        if (!user.getNic().isEmpty()){
+        if (user.getNic() != null){
             if (userDAO.existsByNic(user.getNic())) {
                 User userChecked = userDAO.findByNic(user.getNic());
 

@@ -5,7 +5,9 @@ import java.util.List;
 
 public class BoardingPlaceDTO {
     private Long id;
-    private String location;
+    private double latitude;
+    private double altitude;
+    private String name;
     private String description;
     private int keyMoney;
     private String state;
@@ -20,13 +22,17 @@ public class BoardingPlaceDTO {
     private Long ownerId;
 
     private List<ImageDTO> imageDTOS;
+    private List<BoardingPlaceFacilityDTO> facilityDTOS;
 
     public BoardingPlaceDTO() {
     }
 
-    public BoardingPlaceDTO(Long id, String location, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, Long ownerId) {
+    // use to load data in admin side
+    public BoardingPlaceDTO(Long id, double latitude, double altitude, String name, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, Long ownerId) {
         this.id = id;
-        this.location = location;
+        this.latitude = latitude;
+        this.altitude = altitude;
+        this.name = name;
         this.description = description;
         this.keyMoney = keyMoney;
         this.state = state;
@@ -41,9 +47,12 @@ public class BoardingPlaceDTO {
         this.ownerId = ownerId;
     }
 
-    public BoardingPlaceDTO(Long id, String location, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, Long ownerId, List<ImageDTO> imageDTOS) {
+    //load data in user's side
+    public BoardingPlaceDTO(Long id, double latitude, double altitude, String name, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, Long ownerId, List<ImageDTO> imageDTOS, List<BoardingPlaceFacilityDTO> facilityDTOS) {
         this.id = id;
-        this.location = location;
+        this.latitude = latitude;
+        this.altitude = altitude;
+        this.name = name;
         this.description = description;
         this.keyMoney = keyMoney;
         this.state = state;
@@ -57,6 +66,7 @@ public class BoardingPlaceDTO {
         this.type = type;
         this.ownerId = ownerId;
         this.imageDTOS = imageDTOS;
+        this.facilityDTOS = facilityDTOS;
     }
 
     public Long getId() {
@@ -67,12 +77,28 @@ public class BoardingPlaceDTO {
         this.id = id;
     }
 
-    public String getLocation() {
-        return location;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getAltitude() {
+        return altitude;
+    }
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -179,11 +205,21 @@ public class BoardingPlaceDTO {
         this.imageDTOS = imageDTOS;
     }
 
+    public List<BoardingPlaceFacilityDTO> getFacilityDTOS() {
+        return facilityDTOS;
+    }
+
+    public void setFacilityDTOS(List<BoardingPlaceFacilityDTO> facilityDTOS) {
+        this.facilityDTOS = facilityDTOS;
+    }
+
     @Override
     public String toString() {
         return "BoardingPlaceDTO{" +
                 "id=" + id +
-                ", location='" + location + '\'' +
+                ", latitude=" + latitude +
+                ", altitude=" + altitude +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", keyMoney=" + keyMoney +
                 ", state='" + state + '\'' +
@@ -197,6 +233,7 @@ public class BoardingPlaceDTO {
                 ", type=" + type +
                 ", ownerId=" + ownerId +
                 ", imageDTOS=" + imageDTOS +
+                ", facilityDTOS=" + facilityDTOS +
                 '}';
     }
 }

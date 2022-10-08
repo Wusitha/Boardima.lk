@@ -1,7 +1,5 @@
 package com.services.bodimalk.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.services.bodimalk.dto.NotificationDTO;
 import com.services.bodimalk.dto.NotificationDtoBuilder;
 import com.services.bodimalk.dto.UserDTO;
@@ -18,8 +16,11 @@ import java.util.List;
 @RequestMapping(path = "/notification")
 @CrossOrigin(origins = "*")
 public class NotificationController {
+    private final NotificationBO notificationBO;
     @Autowired
-    NotificationBO notificationBO;
+    public NotificationController(NotificationBO notificationBO) {
+        this.notificationBO = notificationBO;
+    }
 
     @PostMapping("/add")
     public ResponseEntity addNotification(@Valid @RequestBody NotificationDtoBuilder notificationDtoBuilder){

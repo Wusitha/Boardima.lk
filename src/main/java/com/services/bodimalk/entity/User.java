@@ -2,7 +2,6 @@ package com.services.bodimalk.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -13,9 +12,9 @@ public class User {
     private Long id;
     @Column(length = 12, unique = true)
     private String nic;
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
     @Column(length = 10)
     private String contact;
@@ -25,10 +24,9 @@ public class User {
     private String password;
     @Column(length = 1)
     private String gender;
-    private Date dob;
-    @Column(length = 1, nullable = false)
+    @Column(length = 1)
     private String state;
-    @Column(length = 1, nullable = false)
+    @Column(length = 1)
     private String type;
     @Column(name = "guardian_name")
     private String guardianName;
@@ -36,35 +34,31 @@ public class User {
     private String guardianContact;
     private String profileImg;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Notification> notifications;
 
-    @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BoardingPlace> boardingPlaces;
-
-    @OneToMany(mappedBy = "boarder", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<RentPayment> rentPayments;
-
-    @OneToMany(mappedBy = "owner", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SubscriptionPayment> subscriptionPayments;
 
-    @OneToMany(mappedBy = "boarder", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "boarder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RentPayment> rentPayments;
+    @OneToMany(mappedBy = "boarder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BoardingRequest> boardingRequests;
-
-    @OneToMany(mappedBy = "boarder", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "boarder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<WishList> wishLists;
-
-    @OneToMany(mappedBy = "boarder", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "boarder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "examiner", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "examiner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> complaints;
 
 
     public User() {
     }
 
-    public User(Long id, String nic, String firstName, String lastName, String contact, String email, String password, String gender, Date dob, String state, String type, String guardianName, String guardianContact, String profileImg) {
+    public User(Long id, String nic, String firstName, String lastName, String contact, String email, String password, String gender, String state, String type, String guardianName, String guardianContact, String profileImg) {
         this.id = id;
         this.nic = nic;
         this.firstName = firstName;
@@ -73,7 +67,6 @@ public class User {
         this.email = email;
         this.password = password;
         this.gender = gender;
-        this.dob = dob;
         this.state = state;
         this.type = type;
         this.guardianName = guardianName;
@@ -145,14 +138,6 @@ public class User {
         this.gender = gender;
     }
 
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
     public String getState() {
         return state;
     }
@@ -201,12 +186,12 @@ public class User {
         return boardingPlaces;
     }
 
-    public List<RentPayment> getRentPayments() {
-        return rentPayments;
-    }
-
     public List<SubscriptionPayment> getSubscriptionPayments() {
         return subscriptionPayments;
+    }
+
+    public List<RentPayment> getRentPayments() {
+        return rentPayments;
     }
 
     public List<BoardingRequest> getBoardingRequests() {

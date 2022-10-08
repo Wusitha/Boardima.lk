@@ -6,9 +6,7 @@ import com.services.bodimalk.dto.BoardingPlaceDTO;
 import com.services.bodimalk.dto.ImageDTO;
 import com.services.bodimalk.dto.UserDTO;
 import com.services.bodimalk.entity.BoardingPlace;
-import com.services.bodimalk.entity.User;
 import com.services.bodimalk.util.Globals;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,22 +17,27 @@ import java.util.List;
 
 @Service
 public class BoardingPlaceBOImpl implements BoardingPlaceBO{
+    private final BoardingPlaceDAO boardingPlaceDAO;
+    private final PaymentBO paymentBO;
+    private final BoardingRequestBO boardingRequestBO;
+    private final UserDAO userDAO;
+    private final ImageBO imageBO;
+
     @Autowired
-    BoardingPlaceDAO boardingPlaceDAO;
-    @Autowired
-    PaymentBO paymentBO;
-    @Autowired
-    BoardingRequestBO boardingRequestBO;
-    @Autowired
-    UserDAO userDAO;
-    @Autowired
-    ImageBO imageBO;
+    public BoardingPlaceBOImpl(BoardingPlaceDAO boardingPlaceDAO, PaymentBO paymentBO, BoardingRequestBO boardingRequestBO, UserDAO userDAO, ImageBO imageBO) {
+        this.boardingPlaceDAO = boardingPlaceDAO;
+        this.paymentBO = paymentBO;
+        this.boardingRequestBO = boardingRequestBO;
+        this.userDAO = userDAO;
+        this.imageBO = imageBO;
+    }
 
     private BoardingPlace getEntityWithPrimitives(BoardingPlaceDTO boardingPlaceDTO){
         BoardingPlace boardingPlace = new BoardingPlace();
         //set properties
         boardingPlace.setId(boardingPlaceDTO.getId());
-        boardingPlace.setLocation(boardingPlaceDTO.getLocation());
+        boardingPlace.setLatitude(boardingPlaceDTO.getLatitude());
+        boardingPlace.setAltitude(boardingPlaceDTO.getAltitude());
         boardingPlace.setDescription(boardingPlaceDTO.getDescription());
         boardingPlace.setKeyMoney(boardingPlaceDTO.getKeyMoney());
         boardingPlace.setState(boardingPlaceDTO.getState());
@@ -55,7 +58,8 @@ public class BoardingPlaceBOImpl implements BoardingPlaceBO{
         BoardingPlaceDTO boardingPlaceDTO = new BoardingPlaceDTO();
         //set properties
         boardingPlaceDTO.setId(boardingPlace.getId());
-        boardingPlaceDTO.setLocation(boardingPlace.getLocation());
+        boardingPlaceDTO.setLatitude(boardingPlace.getLatitude());
+        boardingPlaceDTO.setAltitude(boardingPlace.getAltitude());
         boardingPlaceDTO.setDescription(boardingPlace.getDescription());
         boardingPlaceDTO.setKeyMoney(boardingPlace.getKeyMoney());
         boardingPlaceDTO.setState(boardingPlace.getState());
@@ -80,7 +84,7 @@ public class BoardingPlaceBOImpl implements BoardingPlaceBO{
         BoardingPlaceDTO boardingPlaceDTO = getDtoWithPrimitives(boardingPlace);
         //set images
         List<ImageDTO> imageDTOS = new ArrayList<>();
-        boardingPlace.getImages().stream().forEach(image -> {
+        boardingPlace.getImages().forEach(image -> {
             ImageDTO imageDTO = imageBO.getImageDto(image);
             imageDTOS.add(imageDTO);
         });
@@ -92,7 +96,7 @@ public class BoardingPlaceBOImpl implements BoardingPlaceBO{
         List<BoardingPlaceDTO> boardingPlaceDTOS = new ArrayList<>();
 
         //set boardingPlaceDTOs
-        boardingPlaces.stream().forEach(boardingPlace -> {
+        boardingPlaces.forEach(boardingPlace -> {
             boardingPlaceDTOS.add(getBoardingPlaceDto(boardingPlace));
         });
 
@@ -106,7 +110,7 @@ public class BoardingPlaceBOImpl implements BoardingPlaceBO{
 
     @Override
     public boolean checkAvailabilityOfBoardingPlace(BoardingPlaceDTO boardingPlaceDTO) {
-        return false;
+        return true;
     }
 
     @Override
@@ -116,7 +120,7 @@ public class BoardingPlaceBOImpl implements BoardingPlaceBO{
         //set properties
         boardingPlace.setState(Globals.NOT_PAID);
         boardingPlace.setDate(getDateToday());
-        boardingPlace.setRate(0);
+        boardingPlace.setRate(Globals.DEFAULT_RATE);
 
         //save boarding place
         try {
@@ -129,17 +133,30 @@ public class BoardingPlaceBOImpl implements BoardingPlaceBO{
     }
 
     @Override
+    public BoardingPlaceDTO rateBoardingPlace(BoardingPlaceDTO boardingPlaceDTO, double rate) {
+        //rate calculation function
+
+        return boardingPlaceDTO;
+    }
+
+    @Override
     public boolean updateBoardingPlace(BoardingPlaceDTO boardingPlaceDTO) {
         //set entity
         BoardingPlace boardingPlace = getEntityWithPrimitives(boardingPlaceDTO);
-        //save boarding place
-        try {
-            boardingPlaceDAO.save(boardingPlace);
-            return true;
-        }catch (Exception e){
-            System.out.println(e);
-            return false;
+
+        //check rate
+        if(boardingPlaceDTO.getRate() <= 5 && boardingPlaceDTO.getRate() >= 0){
+            //save boarding place
+            try {
+                boardingPlaceDAO.save(boardingPlace);
+                return true;
+            }catch (Exception e){
+                System.out.println(e);
+                return false;
+            }
         }
+
+        return false;
     }
 
     @Override
