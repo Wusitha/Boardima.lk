@@ -22,4 +22,16 @@ public class FacilityProfile {
 
     public FacilityProfile() {
     }
+
+    public FacilityProfilePK getFacilityProfilePK() {
+        return facilityProfilePK;
+    }
+
+    public BoardingPlace getBoardingPlace() {
+        return boardingPlace;
+    }
+
+    public BoardingFacility getBoardingFacility() {
+        return boardingFacility;
+    }
 }

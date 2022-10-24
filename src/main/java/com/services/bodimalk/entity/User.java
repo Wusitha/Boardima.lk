@@ -50,7 +50,6 @@ public class User {
     private List<WishList> wishLists;
     @OneToMany(mappedBy = "boarder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> reviews;
-
     @OneToMany(mappedBy = "examiner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> complaints;
 
@@ -209,4 +208,5 @@ public class User {
     public List<Review> getComplaints() {
         return complaints;
     }
+
 }

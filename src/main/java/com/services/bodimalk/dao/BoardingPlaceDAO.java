@@ -13,5 +13,7 @@ public interface BoardingPlaceDAO extends JpaRepository<BoardingPlace, Long> {
     public List<BoardingPlace> findAllByOwner(User owner);
     public List<BoardingPlace> findAllByTypeAndState(int type, String state);
     public List<BoardingPlace> findAllByState(String state);
+    public List<BoardingPlace> findAllByLatitudeAndAltitudeAndOwnerAndName(double latitude, double altitude, User owner, String name);
+    public BoardingPlace findByLatitudeAndAltitudeAndOwnerAndName(double latitude, double altitude, User owner, String name);
     //public List<BoardingPlace> findAllByStateNot(String state);
 }

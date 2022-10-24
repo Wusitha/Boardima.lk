@@ -1,9 +1,8 @@
 package com.services.bodimalk.controller;
 
 import com.services.bodimalk.dto.BoardingPlaceDTO;
+import com.services.bodimalk.dto.ReviewDTO;
 import com.services.bodimalk.service.BoardingPlaceBO;
-import org.aspectj.lang.annotation.DeclareWarning;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +23,15 @@ public class boardingPlaceController {
 
     @PostMapping("/add")
     public ResponseEntity addBoardingPlace(@Valid @RequestBody BoardingPlaceDTO boardingPlaceDTO) {
-        System.out.println("\n"+boardingPlaceDTO.toString()+"\n\n");
+        //System.out.println("\n"+boardingPlaceDTO.toString()+"\n\n");
         if (boardingPlaceBO.addBoardingPlace(boardingPlaceDTO))
             return new ResponseEntity<>("Boarding place added successfully.", HttpStatus.OK);
         return new ResponseEntity<>("Failed to add boarding place.", HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("review")
+    public BoardingPlaceDTO addReview(@Valid @RequestBody ReviewDTO reviewDTO) {
+        return boardingPlaceBO.addReview(reviewDTO);
     }
 
     @PutMapping("/update")
@@ -35,6 +39,11 @@ public class boardingPlaceController {
         if (boardingPlaceBO.updateBoardingPlace(boardingPlaceDTO))
             return new ResponseEntity<>("Boarding place updated", HttpStatus.OK);
         return new ResponseEntity<>("Boarding place update failed", HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping("review")
+    public BoardingPlaceDTO updateReview(@Valid @RequestBody ReviewDTO reviewDTO) {
+        return boardingPlaceBO.addReview(reviewDTO);
     }
 
     @GetMapping("/ads")

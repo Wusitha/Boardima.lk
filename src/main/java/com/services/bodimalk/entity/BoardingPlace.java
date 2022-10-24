@@ -238,4 +238,32 @@ public class BoardingPlace {
     public List<FacilityProfile> getFacilityProfile() {
         return facilityProfile;
     }
+
+    @Override
+    public String toString() {
+        return "BoardingPlace{" +
+                "id=" + id +
+                ", latitude=" + latitude +
+                ", altitude=" + altitude +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", keyMoney=" + keyMoney +
+                ", state='" + state + '\'' +
+                ", rate=" + rate +
+                ", date=" + date +
+                ", rentDay=" + rentDay +
+                ", rentAmo=" + rentAmo +
+                ", beds=" + beds +
+                ", baths=" + baths +
+                ", genderPref='" + genderPref + '\'' +
+                ", type=" + type +
+                ", owner=" + owner +
+                ", images=" + images +
+                ", rentPayments=" + rentPayments +
+                ", subscriptionPayments=" + subscriptionPayments +
+                ", boardingRequests=" + boardingRequests +
+                ", reviews=" + reviews +
+                ", facilityProfile=" + facilityProfile +
+                '}';
+    }
 }

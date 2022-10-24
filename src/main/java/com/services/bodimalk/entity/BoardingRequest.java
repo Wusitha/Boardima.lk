@@ -16,6 +16,7 @@ public class BoardingRequest {
     private String state;
     @NotNull
     private boolean isPaid;
+    private boolean isRated; // just for testing
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "boarder", referencedColumnName = "id", insertable = false, updatable = false)
@@ -29,10 +30,11 @@ public class BoardingRequest {
     public BoardingRequest() {
     }
 
-    public BoardingRequest(BoardingRequestPK boardingRequestPK, String state, boolean isPaid, User boarder, BoardingPlace boardingPlace) {
+    public BoardingRequest(BoardingRequestPK boardingRequestPK, String state, boolean isPaid, boolean isRated, User boarder, BoardingPlace boardingPlace) {
         this.boardingRequestPK = boardingRequestPK;
         this.state = state;
         this.isPaid = isPaid;
+        this.isRated = isRated;
         this.boarder = boarder;
         this.boardingPlace = boardingPlace;
     }
@@ -59,6 +61,14 @@ public class BoardingRequest {
 
     public void setPaid(boolean paid) {
         isPaid = paid;
+    }
+
+    public boolean isRated() {
+        return isRated;
+    }
+
+    public void setRated(boolean rated) {
+        isRated = rated;
     }
 
     public User getBoarder() {

@@ -23,6 +23,7 @@ public class BoardingPlaceDTO {
 
     private List<ImageDTO> imageDTOS;
     private List<BoardingPlaceFacilityDTO> facilityDTOS;
+    private List<ReviewDTO> reviewDTOS;
 
     public BoardingPlaceDTO() {
     }
@@ -211,6 +212,14 @@ public class BoardingPlaceDTO {
 
     public void setFacilityDTOS(List<BoardingPlaceFacilityDTO> facilityDTOS) {
         this.facilityDTOS = facilityDTOS;
+    }
+
+    public List<ReviewDTO> getReviewDTOS() {
+        return reviewDTOS;
+    }
+
+    public void setReviewDTOS(List<ReviewDTO> reviewDTOS) {
+        this.reviewDTOS = reviewDTOS;
     }
 
     @Override

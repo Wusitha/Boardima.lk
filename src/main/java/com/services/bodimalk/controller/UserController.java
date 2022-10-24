@@ -24,15 +24,12 @@ public class UserController {
 
     @GetMapping("/type/{type}")
     public List<UserDTO> getAllUsersByType(@PathVariable String type){
-
-        List<UserDTO> userDTOS = userBO.getAllUsersByType(type);
-        return userDTOS;
+        return userBO.getAllUsersByType(type);
     }
 
     @GetMapping("/get")
     public List<UserDTO> getAllUsers() {
-        List<UserDTO> userDTOS = userBO.getAllUsers();
-        return userDTOS;
+        return userBO.getAllUsers();
     }
 
     @GetMapping("/get/{id}")

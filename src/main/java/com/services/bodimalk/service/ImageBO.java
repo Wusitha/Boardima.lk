@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ImageBO {
     public boolean addImage(ImageDTO imageDTO);
+    public boolean addImages(List<ImageDTO> imageDTOS);
     public boolean updateImage(ImageDTO imageDTO);
     public boolean deleteImage(ImageDTO imageDTO);
     public List<ImageDTO> getAllImages();

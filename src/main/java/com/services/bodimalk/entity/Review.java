@@ -15,7 +15,6 @@ public class Review {
     private String state;
     @NotNull
     private Date date;
-    @NotNull
     private String description;
     private double rate;
 
@@ -35,6 +34,7 @@ public class Review {
     private BoardingPlace boardingPlace;
 
     public Review() {
+        this.rate = 0;
     }
 
     public Review(Long id, String state, Date date, String description, double rate, User boarder, User examiner, BoardingPlace boardingPlace) {
