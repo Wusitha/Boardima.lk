@@ -1,7 +1,7 @@
-import 'package:bodima_app/services/boarding_place_db_service.dart';
-import 'package:bodima_app/services/globals.dart';
+import '/services/boarding_place_db_service.dart';
+import '/services/globals.dart';
 import 'package:flutter/material.dart';
-import 'package:bodima_app/models/boarderModels/boardingPlaceModel.dart';
+import '/models/boarderModels/boardingPlaceModel.dart';
 import '/screen/detail/detail.dart';
 import '/widget/circle_icon_button.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:bodima_app/screen/home/widget/best_offer.dart';
-import 'package:bodima_app/screen/home/widget/categories.dart';
-import 'package:bodima_app/screen/home/widget/custom_app_bar.dart';
-import 'package:bodima_app/screen/home/widget/custom_bottom_navigation_bar.dart';
-import 'package:bodima_app/screen/home/widget/filter.dart';
-import 'package:bodima_app/screen/home/widget/recommended_new.dart';
+import '/screen/home/widget/best_offer.dart';
+import '/screen/home/widget/categories.dart';
+import '/screen/home/widget/custom_app_bar.dart';
+import '/screen/home/widget/custom_bottom_navigation_bar.dart';
+import '/screen/home/widget/filter.dart';
+import '/screen/home/widget/recommended_new.dart';
 
 import 'widget/categories1.dart';
 import 'widget/custom_bottom_navigation_bar_visitor.dart';

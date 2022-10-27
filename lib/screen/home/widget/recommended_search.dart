@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:bodima_app/models/house.dart';
-import 'package:bodima_app/screen/detail/detail.dart';
-import 'package:bodima_app/widget/circle_icon_button.dart';
+import '/models/house.dart';
+import '/screen/detail/detail.dart';
+import '/widget/circle_icon_button.dart';
 
 class RecommendedHouse2 extends StatelessWidget {
   final recommendedList = House.generateSearch();

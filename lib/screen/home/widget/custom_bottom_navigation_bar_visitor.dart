@@ -1,4 +1,4 @@
-import 'package:bodima_app/screen/home/visitor.dart';
+import '/screen/home/visitor.dart';
 import 'package:flutter/material.dart';
 import '/screen/home/home.dart';
 //import 'package:flutter_svg/svg.dart';

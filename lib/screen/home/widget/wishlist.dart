@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:bodima_app/models/house.dart';
-import 'package:bodima_app/widget/circle_icon_button.dart';
+import '/models/house.dart';
+import '/widget/circle_icon_button.dart';
 
 class WishList extends StatelessWidget {
   final listOfOffer = House.generateBestOffer();

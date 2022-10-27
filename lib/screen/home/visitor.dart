@@ -1,10 +1,10 @@
 
 
-import 'package:bodima_app/ui/screen/home/home.dart';
+import '/screen/home/home.dart';
 import 'package:flutter/material.dart';
-import 'package:bodima_app/screen/home/homeb.dart';
+import '/screen/home/homeb.dart';
 
-import 'package:bodima_app/screen/home/home.dart';
+import '/screen/home/home.dart';
 
 import 'login.dart';
 

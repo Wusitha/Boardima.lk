@@ -1,4 +1,4 @@
-import 'package:bodima_app/screen/home/widget/custom_bottom_navigation_bar_visitor.dart';
+import '/screen/home/widget/custom_bottom_navigation_bar_visitor.dart';
 import 'package:flutter/material.dart';
 import 'widget/best_offer.dart';
 import 'widget/categories.dart';

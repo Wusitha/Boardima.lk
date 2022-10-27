@@ -1,4 +1,4 @@
-import 'package:bodima_app/screen/home/homeb.dart';
+import '/screen/home/homeb.dart';
 import 'package:flutter/material.dart';
 
 class MyLogin extends StatefulWidget {

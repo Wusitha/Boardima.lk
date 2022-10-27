@@ -1,6 +1,6 @@
-import 'package:bodima_app/models/boarderModels/boardingPlaceModel.dart';
+import '/models/boarderModels/boardingPlaceModel.dart';
 import 'package:flutter/material.dart';
-import 'package:bodima_app/services/boarding_place_db_service.dart';
+import '/services/boarding_place_db_service.dart';
 import '/widget/circle_icon_button.dart';
 
 class BestOffer extends StatefulWidget {
