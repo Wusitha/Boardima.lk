@@ -1,5 +1,7 @@
 package com.services.bodimalk.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
@@ -13,29 +15,34 @@ public class Review {
     private String state;
     @NotNull
     private Date date;
-    @NotNull
     private String description;
+    private double rate;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    @JoinColumn(name = "boarder",referencedColumnName = "id")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "boarder",referencedColumnName = "id", nullable = false)
     private User boarder;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    @JoinColumn(name = "examiner", referencedColumnName = "id", nullable = true)
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "examiner", referencedColumnName = "id")
     private User examiner;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    @JoinColumn(name = "boarding_place", referencedColumnName = "id")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "boarding_place", referencedColumnName = "id", nullable = false)
     private BoardingPlace boardingPlace;
 
     public Review() {
+        this.rate = 0;
     }
 
-    public Review(Long id, String state, Date date, String description, User boarder, User examiner, BoardingPlace boardingPlace) {
+    public Review(Long id, String state, Date date, String description, double rate, User boarder, User examiner, BoardingPlace boardingPlace) {
         this.id = id;
         this.state = state;
         this.date = date;
         this.description = description;
+        this.rate = rate;
         this.boarder = boarder;
         this.examiner = examiner;
         this.boardingPlace = boardingPlace;
@@ -71,6 +78,14 @@ public class Review {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     public User getBoarder() {

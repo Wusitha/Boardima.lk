@@ -17,6 +17,12 @@ public class ImageDTO {
         this.boardingPlace = boardingPlace;
     }
 
+    public ImageDTO(Long id, String url, Long boardingPlace) {
+        this.id = id;
+        this.url = url;
+        this.boardingPlace = boardingPlace;
+    }
+
     public Long getId() {
         return id;
     }

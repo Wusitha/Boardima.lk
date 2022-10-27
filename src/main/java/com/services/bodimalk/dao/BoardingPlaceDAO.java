@@ -18,6 +18,7 @@ public interface BoardingPlaceDAO extends JpaRepository<BoardingPlace, Long> {
     public List<BoardingPlace> findAllByOwner(User owner);
     public List<BoardingPlace> findAllByTypeAndState(int type, String state);
     public List<BoardingPlace> findAllByState(String state);
+<<<<<<< HEAD
     @Query(value = "SELECT boarding_place.id AS id,boarding_place.location AS location,boarding_place.rent_amo AS price,image.url AS url FROM boarding_place JOIN image ON boarding_place.id=image.boarding_place WHERE boarding_place.state='P'",nativeQuery = true)
     List<Advertisement> findAllAdvertisements();
 
@@ -66,4 +67,9 @@ public interface BoardingPlaceDAO extends JpaRepository<BoardingPlace, Long> {
         }
 
 
+=======
+    public List<BoardingPlace> findAllByLatitudeAndAltitudeAndOwnerAndName(double latitude, double altitude, User owner, String name);
+    public BoardingPlace findByLatitudeAndAltitudeAndOwnerAndName(double latitude, double altitude, User owner, String name);
+    //public List<BoardingPlace> findAllByStateNot(String state);
+>>>>>>> 0f1b051452fc3e4136c7c790906dc14031f29fba
 }

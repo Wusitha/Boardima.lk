@@ -28,8 +28,11 @@ import static java.lang.Integer.parseInt;
 @CrossOrigin(origins = "*")
 public class UserController {
 
+    private final UserBO userBO;
     @Autowired
-    UserBO userBO;
+    public UserController(UserBO userBO) {
+        this.userBO = userBO;
+    }
 
     @Autowired
     ReviewBO reviewBO;
@@ -40,15 +43,12 @@ public class UserController {
 
     @GetMapping("/type/{type}")
     public List<UserDTO> getAllUsersByType(@PathVariable String type){
-
-        List<UserDTO> userDTOS = userBO.getAllUsersByType(type);
-        return userDTOS;
+        return userBO.getAllUsersByType(type);
     }
 
     @GetMapping("/get")
     public List<UserDTO> getAllUsers() {
-        List<UserDTO> userDTOS = userBO.getAllUsers();
-        return userDTOS;
+        return userBO.getAllUsers();
     }
 
     @GetMapping("/get/{id}")

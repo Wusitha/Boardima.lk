@@ -56,7 +56,7 @@ public class NotificationBOImpl implements NotificationBO{
         BeanUtils.copyProperties(notificationDTO, notification);
 
         //set attributes
-        notification.setState(Globals.STATE_UNREAD);
+        notification.setState(Globals.MESSAGE_STATE_UNREAD);
         notification.setDate(getDateToday());
 
         if (!notificationDAO.existsByUserAndMessageAndStateAndDate(notification.getUser(),notification.getMessage(),notification.getState(),notification.getDate())){

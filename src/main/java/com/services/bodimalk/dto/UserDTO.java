@@ -12,7 +12,6 @@ public class UserDTO {
     private String password;
 
     private String gender;
-    private Date dob;
     private String state;
     private String type;
     private String guardianName;
@@ -24,7 +23,8 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String nic, String firstName, String lastName, String contact, String email, String password, String gender, Date dob, String state, String type, String guardianName, String guardianContact, String profileImg) {
+    public UserDTO(Long id, String nic, String firstName, String lastName, String contact, String email, String password, String gender, String state, String type, String guardianName, String guardianContact, String profileImg) {
+        this.id = id;
         this.nic = nic;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -32,7 +32,6 @@ public class UserDTO {
         this.email = email;
         this.password = password;
         this.gender = gender;
-        this.dob = dob;
         this.state = state;
         this.type = type;
         this.guardianName = guardianName;
@@ -113,14 +112,6 @@ public class UserDTO {
         this.gender = gender;
     }
 
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
     public String getState() {
         return state;
     }
@@ -160,6 +151,7 @@ public class UserDTO {
     public void setProfileImg(String profileImg) {
         this.profileImg = profileImg;
     }
+<<<<<<< HEAD
 
     @Override
     public String toString() {
@@ -182,4 +174,6 @@ public class UserDTO {
     }
 
 
+=======
+>>>>>>> 0f1b051452fc3e4136c7c790906dc14031f29fba
 }

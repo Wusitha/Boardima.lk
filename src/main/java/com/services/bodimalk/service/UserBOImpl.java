@@ -15,13 +15,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.UUID;
+=======
+>>>>>>> 0f1b051452fc3e4136c7c790906dc14031f29fba
 
 @Service
 public class UserBOImpl implements UserBO {
+    private final UserDAO userDAO;
 
     @Autowired
-    UserDAO userDAO;
+    public UserBOImpl(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     private User getUserEntityWithPrimitives(UserDTO userDTO){
         User user = new User();
@@ -34,7 +40,6 @@ public class UserBOImpl implements UserBO {
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         user.setGender(userDTO.getGender());
-        user.setDob(userDTO.getDob());
         user.setState(userDTO.getState());
         user.setType(userDTO.getType());
         user.setGuardianName(userDTO.getGuardianName());
@@ -55,7 +60,6 @@ public class UserBOImpl implements UserBO {
         userDTO.setEmail(user.getEmail());
         userDTO.setPassword(user.getPassword());
         userDTO.setGender(user.getGender());
-        userDTO.setDob(user.getDob());
         userDTO.setState(user.getState());
         userDTO.setType(user.getType());
         userDTO.setGuardianName(user.getGuardianName());
@@ -77,13 +81,13 @@ public class UserBOImpl implements UserBO {
             }
         }
 
-        if (!user.getNic().isEmpty()){
+        if (user.getNic() != null){
             if (userDAO.existsByNic(user.getNic())) {
                 User userChecked = userDAO.findByNic(user.getNic());
 
                 //check same user
                 if (user.getId() != null) {
-                    if (!user.getId().equals(userChecked.getId())) return false;
+                    return user.getId().equals(userChecked.getId());
                 }
             }
         }
@@ -100,13 +104,13 @@ public class UserBOImpl implements UserBO {
         if (!checkEmailAndNic(user)) return false;
 
         //set default user attributes
-        user.setState(Globals.STATE_ACTIVE);
+        user.setState(Globals.USER_STATE_ACTIVE);
 
         if (!userDAO.existsByEmail(user.getEmail())){
             try {
                 userDAO.save(user);
             } catch (Exception e) {
-                System.out.println(e);
+                System.out.println("Cannot save user. "+e);
                 return false;
             }
             return true;
@@ -129,7 +133,7 @@ public class UserBOImpl implements UserBO {
             try {
                 userDAO.save(user);
             } catch (Exception e) {
-                System.out.println(e);
+                System.out.println("Cannot update user. "+e);
                 return false;
             }
             return true;
@@ -158,7 +162,7 @@ public class UserBOImpl implements UserBO {
     private List<UserDTO> getUserDTOS(List<User> users) {
         List<UserDTO> userDTOS = new ArrayList<>();
 
-        users.stream().forEach(user -> {
+        users.forEach(user -> {
             UserDTO userDTO = new UserDTO();
             BeanUtils.copyProperties(user, userDTO);
             userDTOS.add(userDTO);

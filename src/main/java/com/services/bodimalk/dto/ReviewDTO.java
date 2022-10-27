@@ -7,6 +7,7 @@ public class ReviewDTO {
     private String state;
     private Date date;
     private String description;
+    private double rate;
     private Long boarder;
     private Long examiner;
     private Long boardingPlace;
@@ -14,10 +15,22 @@ public class ReviewDTO {
     public ReviewDTO() {
     }
 
-    public ReviewDTO(String state, Date date, String description, Long boarder, Long examiner, Long boardingPlace) {
+    public ReviewDTO(String state, Date date, String description, double rate, Long boarder, Long examiner, Long boardingPlace) {
         this.state = state;
         this.date = date;
         this.description = description;
+        this.rate = rate;
+        this.boarder = boarder;
+        this.examiner = examiner;
+        this.boardingPlace = boardingPlace;
+    }
+
+    public ReviewDTO(Long id, String state, Date date, String description, double rate, Long boarder, Long examiner, Long boardingPlace) {
+        this.id = id;
+        this.state = state;
+        this.date = date;
+        this.description = description;
+        this.rate = rate;
         this.boarder = boarder;
         this.examiner = examiner;
         this.boardingPlace = boardingPlace;
@@ -29,30 +42,6 @@ public class ReviewDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getExaminer() {
-        return examiner;
-    }
-
-    public void setExaminer(Long examiner) {
-        this.examiner = examiner;
-    }
-
-    public Long getBoardingPlace() {
-        return boardingPlace;
-    }
-
-    public void setBoardingPlace(Long boardingPlace) {
-        this.boardingPlace = boardingPlace;
-    }
-
-    public Long getBoarder() {
-        return boarder;
-    }
-
-    public void setBoarder(Long boarder) {
-        this.boarder = boarder;
     }
 
     public String getState() {
@@ -79,16 +68,49 @@ public class ReviewDTO {
         this.description = description;
     }
 
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public Long getBoarder() {
+        return boarder;
+    }
+
+    public void setBoarder(Long boarder) {
+        this.boarder = boarder;
+    }
+
+    public Long getExaminer() {
+        return examiner;
+    }
+
+    public void setExaminer(Long examiner) {
+        this.examiner = examiner;
+    }
+
+    public Long getBoardingPlace() {
+        return boardingPlace;
+    }
+
+    public void setBoardingPlace(Long boardingPlace) {
+        this.boardingPlace = boardingPlace;
+    }
+
     @Override
     public String toString() {
         return "ReviewDTO{" +
                 "id=" + id +
-                ", examiner=" + examiner +
-                ", boardingPlace=" + boardingPlace +
-                ", boarder=" + boarder +
                 ", state='" + state + '\'' +
                 ", date=" + date +
                 ", description='" + description + '\'' +
+                ", rate=" + rate +
+                ", boarder=" + boarder +
+                ", examiner=" + examiner +
+                ", boardingPlace=" + boardingPlace +
                 '}';
     }
 }

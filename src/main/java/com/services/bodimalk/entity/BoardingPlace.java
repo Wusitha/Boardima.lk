@@ -6,7 +6,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.List;
 
@@ -19,7 +18,11 @@ public class BoardingPlace {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String location;
+    private double latitude;
+    @NotNull
+    private double altitude;
+    @NotNull
+    private String name;
     @NotNull
     private String description;
     @Column(name = "key_money", nullable = false)
@@ -27,7 +30,6 @@ public class BoardingPlace {
     @NotNull
     private String state;
     @NotNull
-    @Size(min = 0, max = 5)
     private double rate;
     @NotNull
     private Date date;
@@ -46,7 +48,7 @@ public class BoardingPlace {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "owner", referencedColumnName = "id")
+    @JoinColumn(name = "owner", referencedColumnName = "id", nullable = false)
     private User owner;
 
     @OneToMany(mappedBy = "boardingPlace", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
@@ -64,13 +66,17 @@ public class BoardingPlace {
 
     @OneToMany(mappedBy = "boardingPlace", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<Review> reviews;
+    @OneToMany(mappedBy = "boardingPlace", cascade = CascadeType.ALL)
+    private List<FacilityProfile> facilityProfile;
 
     public BoardingPlace() {
     }
 
-    public BoardingPlace(Long id, String location, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, User owner) {
+    public BoardingPlace(Long id, double latitude, double altitude, String name, String description, int keyMoney, String state, double rate, Date date, int rentDay, double rentAmo, int beds, int baths, String genderPref, int type, User owner) {
         this.id = id;
-        this.location = location;
+        this.latitude = latitude;
+        this.altitude = altitude;
+        this.name = name;
         this.description = description;
         this.keyMoney = keyMoney;
         this.state = state;
@@ -85,114 +91,135 @@ public class BoardingPlace {
         this.owner = owner;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getLocation() {
-        return location;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
     }
 
-    public String getDescription() {
-        return description;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public int getKeyMoney() {
-        return keyMoney;
-    }
-
     public void setKeyMoney(int keyMoney) {
         this.keyMoney = keyMoney;
-    }
-
-    public String getState() {
-        return state;
     }
 
     public void setState(String state) {
         this.state = state;
     }
 
-    public double getRate() {
-        return rate;
-    }
-
     public void setRate(double rate) {
         this.rate = rate;
-    }
-
-    public Date getDate() {
-        return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public int getRentDay() {
-        return rentDay;
-    }
-
     public void setRentDay(int rentDay) {
         this.rentDay = rentDay;
-    }
-
-    public double getRentAmo() {
-        return rentAmo;
     }
 
     public void setRentAmo(double rentAmo) {
         this.rentAmo = rentAmo;
     }
 
-    public int getBeds() {
-        return beds;
-    }
-
     public void setBeds(int beds) {
         this.beds = beds;
-    }
-
-    public int getBaths() {
-        return baths;
     }
 
     public void setBaths(int baths) {
         this.baths = baths;
     }
 
-    public String getGenderPref() {
-        return genderPref;
-    }
-
     public void setGenderPref(String genderPref) {
         this.genderPref = genderPref;
-    }
-
-    public int getType() {
-        return type;
     }
 
     public void setType(int type) {
         this.type = type;
     }
 
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getAltitude() {
+        return altitude;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getKeyMoney() {
+        return keyMoney;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public int getRentDay() {
+        return rentDay;
+    }
+
+    public double getRentAmo() {
+        return rentAmo;
+    }
+
+    public int getBeds() {
+        return beds;
+    }
+
+    public int getBaths() {
+        return baths;
+    }
+
+    public String getGenderPref() {
+        return genderPref;
+    }
+
+    public int getType() {
+        return type;
+    }
+
     public User getOwner() {
         return owner;
     }
 
+<<<<<<< HEAD
     public void setOwner(User owner) {
         this.owner = owner;
     }
@@ -202,6 +229,8 @@ public class BoardingPlace {
         this.images=images;
     }
 
+=======
+>>>>>>> 0f1b051452fc3e4136c7c790906dc14031f29fba
     public List<Image> getImages() {
         return images;
     }
@@ -222,11 +251,17 @@ public class BoardingPlace {
         return reviews;
     }
 
+    public List<FacilityProfile> getFacilityProfile() {
+        return facilityProfile;
+    }
+
     @Override
     public String toString() {
         return "BoardingPlace{" +
                 "id=" + id +
-                ", location='" + location + '\'' +
+                ", latitude=" + latitude +
+                ", altitude=" + altitude +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", keyMoney=" + keyMoney +
                 ", state='" + state + '\'' +
@@ -239,6 +274,12 @@ public class BoardingPlace {
                 ", genderPref='" + genderPref + '\'' +
                 ", type=" + type +
                 ", owner=" + owner +
+                ", images=" + images +
+                ", rentPayments=" + rentPayments +
+                ", subscriptionPayments=" + subscriptionPayments +
+                ", boardingRequests=" + boardingRequests +
+                ", reviews=" + reviews +
+                ", facilityProfile=" + facilityProfile +
                 '}';
     }
 }

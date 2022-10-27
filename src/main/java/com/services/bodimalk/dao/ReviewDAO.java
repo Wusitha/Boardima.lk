@@ -1,6 +1,8 @@
 package com.services.bodimalk.dao;
 
+import com.services.bodimalk.entity.BoardingPlace;
 import com.services.bodimalk.entity.Review;
+import com.services.bodimalk.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +14,7 @@ import java.util.List;
 @Repository
 @Transactional
 public interface ReviewDAO extends JpaRepository<Review, Long> {
+<<<<<<< HEAD
 
     @Query(value = "SELECT review.id AS id,review.date AS date,review.description AS description,user.first_name AS Boarder,review.boarding_place AS boardingPlaceId FROM review JOIN user ON review.boarder=user.id WHERE review.state='C'",nativeQuery = true)
     List<Complaint> getAllReviews();
@@ -30,4 +33,8 @@ public interface ReviewDAO extends JpaRepository<Review, Long> {
         String getBoarder();
         int getBoardingPlaceId();
     }
+=======
+    public boolean existsByBoarderAndBoardingPlace(User boarder, BoardingPlace boardingPlace);
+    public Review findByBoarderAndBoardingPlace(User boarder, BoardingPlace boardingPlace);
+>>>>>>> 0f1b051452fc3e4136c7c790906dc14031f29fba
 }
