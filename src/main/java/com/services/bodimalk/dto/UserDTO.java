@@ -10,6 +10,7 @@ public class UserDTO {
     private String contact;
     private String email;
     private String password;
+
     private String gender;
     private Date dob;
     private String state;
@@ -17,6 +18,7 @@ public class UserDTO {
     private String guardianName;
     private String guardianContact;
     private String profileImg;
+
 
 
     public UserDTO() {
@@ -36,6 +38,15 @@ public class UserDTO {
         this.guardianName = guardianName;
         this.guardianContact = guardianContact;
         this.profileImg = profileImg;
+    }
+
+    public UserDTO( String firstName, String lastName,  String email, String password, String type) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.type = type;
+
     }
 
     public Long getId() {
@@ -169,4 +180,6 @@ public class UserDTO {
                 ", profileImg='" + profileImg + '\'' +
                 '}';
     }
+
+
 }

@@ -26,8 +26,10 @@ public class User {
     @Column(length = 1)
     private String gender;
     private Date dob;
-    @Column(length = 1, nullable = false)
+    @Column(length = 1)
     private String state;
+
+
     @Column(length = 1, nullable = false)
     private String type;
     @Column(name = "guardian_name")
@@ -79,6 +81,24 @@ public class User {
         this.guardianName = guardianName;
         this.guardianContact = guardianContact;
         this.profileImg = profileImg;
+    }
+
+    public User(String firstName,String lastName,String state, String type)
+    {
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.state=state;
+        this.type=type;
+    }
+
+    public User(String firstName,String lastName,String gender, Date dob,String contact,long id)
+    {
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.gender=gender;
+        this.dob=dob;
+        this.contact=contact;
+        this.id=id;
     }
 
     public Long getId() {
@@ -224,4 +244,26 @@ public class User {
     public List<Review> getComplaints() {
         return complaints;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nic='" + nic + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", contact='" + contact + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
+                ", dob=" + dob +
+                ", state='" + state + '\'' +
+                ", type='" + type + '\'' +
+                ", guardianName='" + guardianName + '\'' +
+                ", guardianContact='" + guardianContact + '\'' +
+                ", profileImg='" + profileImg + '\'' +
+                '}';
+    }
+
+
 }

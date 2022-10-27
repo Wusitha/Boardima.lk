@@ -1,16 +1,21 @@
 package com.services.bodimalk.service;
 
+import com.services.bodimalk.dao.UserDAO;
+import com.services.bodimalk.dao.VerificationTokenDAO;
 import com.services.bodimalk.dto.UserDTO;
 import com.services.bodimalk.entity.User;
-import com.services.bodimalk.dao.UserDAO;
+import com.services.bodimalk.entity.VerificationToken;
 import com.services.bodimalk.util.Globals;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserBOImpl implements UserBO {
@@ -179,5 +184,132 @@ public class UserBOImpl implements UserBO {
             return true;
         }
         return false;
+    }
+
+    @Autowired
+    private VerificationTokenDAO verificationTokenDAO;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Override
+    public User registerUser(UserDTO userDTO) {
+
+            User user=new User();
+            user.setEmail(userDTO.getEmail());
+            user.setFirstName(userDTO.getFirstName());
+            user.setLastName(userDTO.getLastName());
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            user.setState("P");
+            user.setType(userDTO.getType());
+            userDAO.save(user);
+
+            return user;
+
+
+
+
+
+
+
+
+
+    }
+
+    @Override
+    public void saveToken(User user, String url) {
+        VerificationToken token=new VerificationToken(user, UUID.randomUUID().toString());
+        verificationTokenDAO.save(token);
+        sendEmail(token.getUser(),token.getToken(),url);
+
+
+    }
+
+    @Override
+    public String validateVerificationToken(String token) {
+        VerificationToken verificationToken=verificationTokenDAO.findByToken(token);
+        if(verificationToken==null)
+            return "invalid";
+        else{
+            User user=verificationToken.getUser();
+            user.setState("A");
+            userDAO.save(user);
+            return "valid";
+        }
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userDAO.findByEmail(email);
+    }
+
+    @Override
+    public String editUser(UserDTO userDTO) {
+
+        User user=userDAO.findByEmail(userDTO.getEmail());
+        if(user==null)
+            return "Error";
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        userDAO.save(user);
+        return "Success";
+
+
+
+    }
+
+    @Override
+    public List<User> getAllUsersList() {
+        List<User> usersWithAllAttributes= userDAO.getAllUsers();
+        List<User> users=new ArrayList<>();
+        for(User user:usersWithAllAttributes)
+        {
+            users.add(new User(user.getFirstName(),user.getLastName(),user.getState(),user.getType()));
+        }
+
+
+        return users;
+
+
+    }
+
+    @Override
+    public List<User> getBoardersList() {
+        List<User> boardersWithAllAttributes= userDAO.getAllBoarders();
+        List<User> boarders=new ArrayList<>();
+        for(User user:boardersWithAllAttributes)
+        {
+            boarders.add(new User(user.getFirstName(),user.getLastName(),user.getState(),user.getType()));
+        }
+
+
+        return boarders;
+    }
+
+    @Override
+    public List<User> getBoardingOwnerList() {
+        List<User> boardingOwnersWithAllAttributes= userDAO.getAllBoardingOwners();
+        List<User> boardingOwners=new ArrayList<>();
+        for(User user:boardingOwnersWithAllAttributes)
+        {
+            boardingOwners.add(new User(user.getFirstName(),user.getLastName(),user.getState(),user.getType()));
+        }
+
+
+        return boardingOwners;
+    }
+
+
+    private void sendEmail(User user, String token,String applicationURL) {
+        String url=applicationURL+"/verifyRegistration?token="+token;
+        SimpleMailMessage simpleMailMessage=new SimpleMailMessage();
+        simpleMailMessage.setFrom("2022gp2@gmail.com");
+        simpleMailMessage.setTo(user.getEmail());
+        simpleMailMessage.setText(url);
+        simpleMailMessage.setSubject("Verify Your Registration in Bodima.lk");
+        javaMailSender.send(simpleMailMessage);
+
     }
 }

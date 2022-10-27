@@ -16,6 +16,7 @@ public class Image {
     private BoardingPlace boardingPlace;
 
     public Image() {
+
     }
 
     public Image(String url, BoardingPlace boardingPlace) {

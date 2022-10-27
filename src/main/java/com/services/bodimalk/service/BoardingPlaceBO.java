@@ -1,8 +1,11 @@
 package com.services.bodimalk.service;
 
+import com.services.bodimalk.dto.AdvertisementDTO;
 import com.services.bodimalk.dto.BoardingPlaceDTO;
+import com.services.bodimalk.dto.PlaceDTO;
 import com.services.bodimalk.dto.UserDTO;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BoardingPlaceBO {
@@ -17,4 +20,12 @@ public interface BoardingPlaceBO {
     public List<BoardingPlaceDTO> getAllAdsByOwner(UserDTO userDTO);
     public List<BoardingPlaceDTO> getAllBoardingPlacesByTypeAndState(BoardingPlaceDTO boardingPlaceDTO);
     public List<UserDTO> getBoarderListByBoardingPlace(BoardingPlaceDTO boardingPlaceDTO);
+
+    List<AdvertisementDTO> getAllAdvertisements();
+
+    AdvertisementDTO getAdvertisement(int id);
+
+    String acceptBoardingPlace(int id);
+
+    String addNewBoardingPlace(PlaceDTO placeDTO) throws ParseException;
 }

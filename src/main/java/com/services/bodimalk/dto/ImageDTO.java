@@ -7,6 +7,10 @@ public class ImageDTO {
 
     public ImageDTO() {
     }
+    public ImageDTO(String url) {
+        this.url=url;
+    }
+
 
     public ImageDTO(String url, Long boardingPlace) {
         this.url = url;

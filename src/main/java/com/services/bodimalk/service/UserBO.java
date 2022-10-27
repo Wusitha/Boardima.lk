@@ -13,4 +13,18 @@ public interface UserBO {
     public List<UserDTO> getAllUsers();
     public List<UserDTO> getAllUsersByType(String type);
     public boolean deleteUser(UserDTO userDTO);
+    User registerUser(UserDTO userDTO);
+    void saveToken(User user, String url);
+    String validateVerificationToken(String token);
+
+    User getUserByEmail(String email);
+
+
+    String editUser(UserDTO userDTO);
+
+    List<User> getAllUsersList();
+
+    List<User> getBoardersList();
+
+    List<User> getBoardingOwnerList();
 }

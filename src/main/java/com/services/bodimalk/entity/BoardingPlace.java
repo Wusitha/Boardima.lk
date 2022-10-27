@@ -1,6 +1,8 @@
 package com.services.bodimalk.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +11,8 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
 @Table(name = "boarding_place")
 public class BoardingPlace {
     @Id
@@ -191,6 +195,11 @@ public class BoardingPlace {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public void setImages(List<Image> images)
+    {
+        this.images=images;
     }
 
     public List<Image> getImages() {

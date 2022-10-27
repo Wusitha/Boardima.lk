@@ -1,14 +1,11 @@
 package com.services.bodimalk.service;
 
 import com.services.bodimalk.dao.BoardingPlaceDAO;
+import com.services.bodimalk.dao.ImageDAO;
 import com.services.bodimalk.dao.UserDAO;
-import com.services.bodimalk.dto.BoardingPlaceDTO;
-import com.services.bodimalk.dto.ImageDTO;
-import com.services.bodimalk.dto.UserDTO;
+import com.services.bodimalk.dto.*;
 import com.services.bodimalk.entity.BoardingPlace;
-import com.services.bodimalk.entity.User;
 import com.services.bodimalk.util.Globals;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +26,9 @@ public class BoardingPlaceBOImpl implements BoardingPlaceBO{
     UserDAO userDAO;
     @Autowired
     ImageBO imageBO;
+
+    @Autowired
+    ImageDAO imageDAO;
 
     private BoardingPlace getEntityWithPrimitives(BoardingPlaceDTO boardingPlaceDTO){
         BoardingPlace boardingPlace = new BoardingPlace();
@@ -190,5 +190,83 @@ public class BoardingPlaceBOImpl implements BoardingPlaceBO{
     @Override
     public List<UserDTO> getBoarderListByBoardingPlace(BoardingPlaceDTO boardingPlaceDTO) {
         return null;
+    }
+
+    @Override
+    public List<AdvertisementDTO> getAllAdvertisements() {
+        List<BoardingPlaceDAO.Advertisement> allPendingAdvertisements= boardingPlaceDAO.findAllAdvertisements();
+        List<AdvertisementDTO> advertisements=new ArrayList<>();
+
+        for(BoardingPlaceDAO.Advertisement advertisement:allPendingAdvertisements)
+        {
+            advertisements.add( AdvertisementDTO.builder().id(advertisement.getId()).imgUrl(advertisement.getUrl()).location(advertisement.getLocation()).price(advertisement.getPrice()).build());
+
+        }
+        return advertisements;
+    }
+
+    @Override
+    public AdvertisementDTO getAdvertisement(int id) {
+        BoardingPlaceDAO.AdvertisementAll advertisement=boardingPlaceDAO.findAdvertisement(id);
+        AdvertisementDTO advertisementDTO=AdvertisementDTO.builder().price(advertisement.getPrice()).baths(advertisement.getBaths()).beds(advertisement.getBeds()).date(advertisement.getDate())
+                .description(advertisement.getDescription()).lat(advertisement.getLat()).lon(advertisement.getLon()).keyMoney(advertisement.getKeyMoney())
+                .ownerName(advertisement.getOwner()).location(advertisement.getLocation()).imgUrl(advertisement.getUrl()).id(advertisement.getId()).build();
+        return advertisementDTO;
+
+    }
+
+    @Override
+    public String acceptBoardingPlace(int id) {
+
+        try {
+
+            boardingPlaceDAO.acceptBoardingPlace(id);
+
+            return "Successfully Added";
+
+
+        }
+        catch (Exception e){
+
+            return e.getMessage();
+        }
+
+
+    }
+
+    @Override
+    public String addNewBoardingPlace(PlaceDTO placeDTO)  {
+        int preId=boardingPlaceDAO.getPrevioudId();
+        try{
+            boardingPlaceDAO.saveBoardingPlace(preId+1,placeDTO.getLocation(),placeDTO.getState(),Integer.parseInt(placeDTO.getBaths()),
+                    Integer.parseInt(placeDTO.getBeds()),java.sql.Date.valueOf("2022-10-"+placeDTO.getRentDate()),placeDTO.getDescription(),
+                    placeDTO.getKeyMoney(),placeDTO.getRentAmount(),1,Integer.parseInt(placeDTO.getRentDate()));
+            imageDAO.saveImage(preId+1,placeDTO.getImgUrl());
+            return "Success";
+
+        }catch(Exception e)
+        {
+            return e.getMessage();
+        }
+//        BoardingPlace boardingPlace=new BoardingPlace();
+//        Image image=new Image();
+//        image.setUrl(placeDTO.getImgUrl());
+//        List<Image> list=new ArrayList<>();
+//        list.add(image);
+//
+//        boardingPlace.setLocation(placeDTO.getLocation());
+//        boardingPlace.setState(placeDTO.getState());
+//        boardingPlace.setBaths(Integer.parseInt(placeDTO.getBaths()));
+//        boardingPlace.setBeds(Integer.parseInt(placeDTO.getBeds()));
+//        java.sql.Date sqlDate= java.sql.Date.valueOf("2022-10-"+placeDTO.getRentDate());
+//        boardingPlace.setDate(sqlDate);
+//        boardingPlace.setDescription(placeDTO.getDescription());
+//        boardingPlace.setKeyMoney(Integer.parseInt(placeDTO.getKeyMoney()));
+//        boardingPlace.setRentAmo(Integer.parseInt(placeDTO.getRentAmount()));
+//        boardingPlace.setType(1);
+//        boardingPlace.setImages(list);
+//        boardingPlaceDAO.save(boardingPlace);
+//        return "success";
+
     }
 }
